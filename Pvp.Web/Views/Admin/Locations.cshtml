@@ -1,0 +1,113 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Location>
+<div class="container-fluid mt-5 pt-5 pb-4">
+    <div class="card bg-dark text-white">
+        <div class="card-header">
+            Store Locations
+            <button id="newItem" class="btn btn-sm btn-success float-right">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+        <div class="card-body bg-light text-dark">
+          
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Hours</th>
+                        <th>Phone</th>
+                        <th>Address</th>                        
+                        <th>City</th>                        
+                        <th>Zip</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var loc in Model)
+                    {
+                    <tr class="selectItem" data-id="@loc.Id">
+                        <td>@loc.DisplayName</td>
+                        <td>@loc.HoursOfOperation</td>
+                        <td>@loc.PhoneNumber</td>
+                        <td>@loc.Address</td>
+                        <td>@loc.City</td>
+                        <td>@loc.ZipCode</td>
+                        <td>@loc.Comments</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-primary">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Add Locations</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="addArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-success">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Edit Locations</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="editArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+<script>
+
+    $(document).on('click', '.selectItem', function () {
+        var id = $(this).data("id");
+        $.ajax({
+            'url': "@Url.Action("EditLocation", "Admin")?id="+id
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#editArea').html(data);
+                $('#edit').modal();
+            }
+        });
+    });
+
+     $(document).on('click', '#newItem', function () {
+        
+        $.ajax({
+            'url': "@Url.Action("AddLocation", "Admin")"
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#addArea').html(data);
+                $('#add').modal();
+            }
+        });
+    });
+
+
+</script>
+
+}

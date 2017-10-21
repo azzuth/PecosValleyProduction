@@ -1,0 +1,39 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model ContactRequest
+
+@{
+    var locationsItems = (IEnumerable<Location>)ViewBag.Locations;
+    var selectItems = locationsItems.Select(p => new SelectListItem() { Text = $"{p.DisplayName} - {p.Address}", Value = $"{p.Id}" });
+}
+
+@Html.AntiForgeryToken()
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Location)
+    @Html.DropDownListFor(m => m.LocationId, selectItems, new { @class = "form-control", @aria_describedby = "locationHelp" })
+
+    <small id="locationHelp" class="form-text text-muted">Which location are you reviewing?</small>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @aria_describedby = "nameHelp", placeholder = "Enter your name" })
+    <small id="nameHelp" class="form-text text-muted">What should we call you?</small>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.EmailAddress)
+    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", @aria_describedby = "emailAddressHelp", placeholder = "" })
+    <small id="emailAddressHelp" class="form-text text-muted">We will not share your email address with anyone</small>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.PhoneNumber)
+    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @aria_describedby = "phoneHelp", placeholder = "___-___-____" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Message)
+    @Html.TextAreaFor(m => m.Message, new { @class = "form-control", @aria_describedby = "messageHelp" })
+    <small id="messageHelp" class="form-text text-muted">What else would you like to discuss with us?</small>
+</div>

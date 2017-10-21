@@ -1,0 +1,23 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO.Abstract
+@model Review
+
+<div class="card border-success" style="min-width:20em;">
+    <div class="card-header border-success">
+        <h5 class="text-success">
+        <i class="mdi mdi-comment-account"></i>
+        @Model.Name</h5>
+    </div>
+    <div class="card-body text-dark">        
+        @Html.Partial("_CommentRating", Model.Rating)
+        <p class="card-text">@Model.Comment</p>
+
+        @if (!String.IsNullOrEmpty(Model.UrlToReview))
+        {
+            <a href="@Model.UrlToReview">View on @Model.SourceOfReview</a>
+        }
+    </div>
+    <div class="card-footer text-muted border-success">
+        @Model.DateOfReview.ToShortDateString()
+        <i class="mdi mdi-home"></i> @Model.Location.DisplayName       
+    </div>
+</div>

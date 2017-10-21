@@ -53,12 +53,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -184,17 +193,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLogic\DAL\PvpDbContext.cs" />
+    <Compile Include="AppLogic\Models\Business\Response.cs" />
+    <Compile Include="AppLogic\Models\DTO\Abstract\CustomerSubmittedDbObject.cs" />
+    <Compile Include="AppLogic\Models\DTO\Abstract\DbObject.cs" />
+    <Compile Include="AppLogic\Models\DTO\Abstract\RequestObject.cs" />
+    <Compile Include="AppLogic\Models\DTO\Abstract\Review.cs" />
+    <Compile Include="AppLogic\Models\DTO\ApprovedReview.cs" />
+    <Compile Include="AppLogic\Models\DTO\BioTrackThcMenu.cs" />
+    <Compile Include="AppLogic\Models\DTO\CustomerReview.cs" />
+    <Compile Include="AppLogic\Models\DTO\IpBlacklist.cs" />
+    <Compile Include="AppLogic\Models\DTO\Location.cs" />
+    <Compile Include="AppLogic\Models\DTO\AppointmentRequest.cs" />
+    <Compile Include="AppLogic\Models\DTO\ContactRequest.cs" />
+    <Compile Include="AppLogic\Models\DTO\ExternalReview.cs" />
+    <Compile Include="AppLogic\Models\DTO\RequestAttemptLog.cs" />
+    <Compile Include="AppLogic\Models\ViewModels\LocationDetails.cs" />
+    <Compile Include="AppLogic\Modules\AdminModule.cs" />
+    <Compile Include="AppLogic\Modules\MainModule.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710210238458_InitialCreate.cs" />
+    <Compile Include="Migrations\201710210238458_InitialCreate.Designer.cs">
+      <DependentUpon>201710210238458_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710210510318_initial.cs" />
+    <Compile Include="Migrations\201710210510318_initial.Designer.cs">
+      <DependentUpon>201710210510318_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -208,12 +245,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\cannabis-1418332_1280sm.jpg" />
+    <Content Include="Images\cannabis-2150543_1280.jpg" />
+    <Content Include="Images\heart-1616465_1920.jpg" />
+    <Content Include="Images\pexels-photo-48709.jpeg" />
+    <Content Include="Images\submit-review-pvp2016.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\projectmonocle.com - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\zipdaub.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\googleMap.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -258,6 +303,19 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_CommentCardList.cshtml" />
+    <Content Include="Views\Shared\_CommentCardItem.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Shared\_CommentRating.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Admin\_locationForm.cshtml" />
+    <Content Include="Views\Admin\AddLocation.cshtml" />
+    <Content Include="Views\Admin\Locations.cshtml" />
+    <Content Include="Views\Admin\EditLocation.cshtml" />
+    <Content Include="Views\Shared\_LocationsMap.cshtml" />
+    <Content Include="Views\Shared\_LocationCard.cshtml" />
+    <Content Include="Views\Home\CommentSubmitted.cshtml" />
+    <Content Include="Views\Home\_ContactRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +332,14 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710210238458_InitialCreate.resx">
+      <DependentUpon>201710210238458_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710210510318_initial.resx">
+      <DependentUpon>201710210510318_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

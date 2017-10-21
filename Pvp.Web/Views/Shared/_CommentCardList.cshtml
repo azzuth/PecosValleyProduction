@@ -1,0 +1,52 @@
+﻿
+<div class="container-fluid pt-5 pb-5 bg-secondary">
+    <div class="container">
+        <div class="card bg-faded">
+            <div class="card-header bg-success text-white">
+                <h3><i class="mdi mdi-comment-multiple-outline"></i> See what our customers are saying</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title"> </h4>
+
+                <div class="card-columns">
+
+                    <div class="card border-primary" style="min-width:20em;">
+                        <div class="card-header border-primary">
+                            <h5 class="text-primary">
+                                <i class="mdi mdi-comment-text-outline"></i>
+                                Review PVP for 5% off
+                            </h5>
+                        </div>
+                        <div class="card-body text-dark bg-white">
+                            <h3 class="card-title text-primary">
+                                <i class="mdi mdi-sale"></i> Send us a review and get 5% off
+                            </h3>
+
+                            <div class="card-text border-primary">
+                                Review us on Google, Leafly, or Facebook today
+                                for a discount*!
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted border-primary">
+                            *limit of one discount per invoice, review must be verified.
+                        </div>
+                    </div>
+
+                    @*@Html.Partial("_CommentCardItem", 2)
+     @Html.Partial("_CommentCardItem", 0)
+     @Html.Partial("_CommentCardItem", 5)
+     @Html.Partial("_CommentCardItem", 1)
+     @Html.Partial("_CommentCardItem", 3)
+    @Html.Partial("_CommentCardItem", 0)*@
+
+                    <div class="card border-success">
+                        <div class="card-body text-dark">
+                            <p class="card-text">See more comments</p>
+                            <div class="btn btn-success"><i class="mdi mdi-comment-multiple-outline"></i> Comments page</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

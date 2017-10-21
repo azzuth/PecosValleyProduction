@@ -1,0 +1,31 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Location>
+
+<div class="card bg-dark">
+    <div class="card-header text-center">
+        <h3>Come in and visit us</h3>
+    </div>
+    <div class="card-deck pl-3 pr-3">
+
+        @foreach(var location in Model)
+        {
+            @Html.Partial("_LocationCard", location)
+        }
+
+    </div>
+    <div class="card-footer">
+        <div class="maplegend">
+            <div>
+                <i class="mdi mdi-map-marker"></i> Click location on right to target on map
+            </div>
+            <div>
+                <i class="mdi mdi-phone"></i> Click to call this location
+            </div>
+        </div>
+    </div>
+    <div class="card bg-transparent">
+        <div class="mapArea">
+            <div id="map" class="col-md-12" style="height:400px;"></div>
+        </div>
+    </div>
+</div>

@@ -1,17 +1,132 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model CustomerReview
+
+@{ 
+    var locationsItems = (IEnumerable<Location>)ViewBag.Locations;
+    var selectItems = locationsItems.Select(p => new SelectListItem() { Text = $"{p.DisplayName} - {p.Address}", Value = $"{p.Id}" });
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<a id="contactRequest"></a><br />
+<div class="container-fluid mt-5 pt-5 pb-4 bg-light">
+    <div class="container">        
+        <h3>Let us help you out with any questions</h3>
+        <p>
+            PVP is happy to help with any of your questions.  Let us know what we can help you with by filling out 
+            the form below.  We will have one of our knowledgable team members contact you.
+        </p>
+        <div class="card bg-success text-white">
+            <div class="card-header">
+               Ask us a question and we will get back to you
+            </div>
+            <div class="card-body bg-light text-dark">
+                @using (Html.BeginForm("AttemptAddComment", "Home", FormMethod.Post))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("_ContactRequest")
+                    <button type="submit" class="btn btn-success">Submit my request</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<a id="comment"></a><br/>
+<div class="container-fluid pt-5 pb-4 bg-dark">
+    <div class="container pb-4  text-white">
+        <h3>Help us out with a review and earn a discount</h3>
+        <p>
+            Submit a review here, or on social media.  Once the review is verified, it will be available on the site.
+            Drop by the store and let us know your comment is live and redeem your discount!
+        </p>
+
+        <div class="card bg-success text-white">
+            <div class="card-header">  
+                Submit a review
+            </div>
+            <div class="card-body bg-light text-dark">
+                @using (Html.BeginForm("AttemptAddComment", "Home", FormMethod.Post))
+            {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Location)
+                        @Html.DropDownListFor(m => m.LocationId, selectItems, new { @class = "form-control", @aria_describedby = "locationHelp" })
+
+                        <small id="locationHelp" class="form-text text-muted">Which location are you reviewing?</small>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Rating) <span class="badge badge-pill badge-success hidden" id="selectedRating"></span>
+                        @Html.HiddenFor(m => m.Rating)
+                        <div>
+                            <span class="ratingStar" data-rating="1"><i class="mdi mdi-36px mdi-cannabis text-muted"></i></span>
+                            <span class="ratingStar" data-rating="2"><i class="mdi mdi-36px mdi-cannabis text-muted"></i></span>
+                            <span class="ratingStar" data-rating="3"><i class="mdi mdi-36px mdi-cannabis text-muted"></i></span>
+                            <span class="ratingStar" data-rating="4"><i class="mdi mdi-36px mdi-cannabis text-muted"></i></span>
+                            <span class="ratingStar" data-rating="5"><i class="mdi mdi-36px mdi-cannabis text-muted"></i></span>
+
+                        </div>
+                        <small id="nameHelp" class="form-text text-muted">Click a rating from 1 to 5</small>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Comment)
+                        @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", @aria_describedby = "commentsHelp" })
+                        <small id="commentsHelp" class="form-text text-muted">What else would you like to say about this location?</small>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit My Review</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).on('mouseenter', '.ratingStar', function () {
+            var rating = $(this).data("rating");
+            Highlight(rating);
+        });
+        $(document).on('mouseleave', '.ratingStar', function () {
+            UnHighlight();
+        });
+
+        $(document).on('click', '.ratingStar', function () {
+            var rating = $(this).data("rating");
+            SelectItem(rating);
+        });
+
+        function SelectItem(rating) {
+            $('#selectedRating').show();
+            $('#selectedRating').text(rating + ' / 5');
+            $('#Rating').val(rating);
+            UnHighlight();
+            $('.ratingStar i').removeAttr('selected');
+            while (rating > 0) {
+                $('.ratingStar[data-rating="' + rating + '"] i')
+                    .removeClass("text-muted")
+                    .addClass("text-success")
+                    .attr('selected', 'true');
+                console.log(rating);
+                rating--;
+            }
+        }
+
+        function Highlight(rating) {
+            while (rating > 0) {
+                $('.ratingStar[data-rating="' + rating + '"] i')
+                    .removeClass("text-muted")
+                    .addClass('text-success')
+                    .addClass("border-dark");
+                console.log(rating);
+                rating--;
+            }
+        }
+
+        function UnHighlight() {
+            $('.ratingStar i').removeClass("border-dark");
+            $('.ratingStar i:not([selected])')
+                .removeClass("text-success")
+                .addClass("text-muted");                
+        }
+
+    </script>
+}

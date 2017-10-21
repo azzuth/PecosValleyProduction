@@ -1,0 +1,18 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model Location
+
+<div class="card text-dark bg-light border-success storeLocation">
+    <div class="card-header  border-success">
+        <h4 class="location"><i class="mdi mdi-map-marker"></i> @Model.DisplayName</h4>
+        <div class="hours"><i class="mdi mdi-calendar"></i> @Model.HoursOfOperation</div>
+    </div>
+    <div class="information card-body bg-light  text-dark">
+        <div class="card-title">
+            <a href="tel://1-@Model.PhoneNumber"><i class="mdi mdi-phone"></i>  1-@Model.PhoneNumber</a>
+        </div>
+        <address class="address card-text">
+            @Model.Address <br />
+            @Model.City, @Model.StateAbbreviation @Model.ZipCode
+        </address>
+    </div>
+</div>

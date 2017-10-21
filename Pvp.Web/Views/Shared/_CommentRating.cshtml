@@ -1,0 +1,12 @@
+﻿@model int
+
+@{
+    var max = 5;
+}
+<h4 class="">
+
+    @for (int i = 0; i < max; i++)
+    {
+        <i class="mdi mdi-24px mdi-cannabis @(Model > i ? "text-success" : "text-muted")"></i>
+    }
+</h4>

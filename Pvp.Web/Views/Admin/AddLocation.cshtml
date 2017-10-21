@@ -1,0 +1,13 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model Location
+
+<div class="container">
+   
+            @using (Html.BeginForm("AddLocation", "Admin", FormMethod.Post))
+            {
+                @Html.Partial("_locationForm")
+
+                <button type="submit" class="btn btn-success">Create New Location</button>
+            }
+     
+</div>
