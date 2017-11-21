@@ -1,0 +1,13 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model Faq
+
+    <div class="container">
+
+        @using (Html.BeginForm("AddFaq", "Admin", FormMethod.Post))
+        {
+            @Html.Partial("_FaqForm")
+
+            <button type="submit" class="btn btn-success">Create New FAQ</button>
+        }
+
+    </div>

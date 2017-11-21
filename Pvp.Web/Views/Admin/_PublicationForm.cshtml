@@ -1,0 +1,26 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model Publication
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m=>m.Id)
+
+<div class="form-group">
+    @Html.LabelFor(p => p.PageLocation)
+    @Html.EnumDropDownListFor(p => p.PageLocation, new { @class = "form-control", @aria_describedby = "pagelocationHelp"})
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.PostTitle)
+    @Html.TextBoxFor(p => p.PostTitle, new { @class = "form-control", @aria_describedby = "titleHelp", placeholder = "Enter a title" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.PostHtml)
+    @Html.TextAreaFor(p => p.PostHtml, new { @class = "form-control", rows="10", @aria_describedby = "postHelp", placeholder = "Enter the text for this publication" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.ExpiresOn)
+    @Html.TextBoxFor(p => p.ExpiresOn, new { @class = "form-control", @aria_describedby = "expireHelp" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.Active)
+    @Html.CheckBoxFor(p => p.Active)
+</div>

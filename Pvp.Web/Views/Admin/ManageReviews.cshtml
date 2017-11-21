@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using Pvp.Web.AppLogic.Models.ViewModels
+@model ManageReviewPage
+
+<div id="contactRequest" class="container-fluid pt-3 pb-4">
+    <div class="container-fluid">
+
+
+        <div class="card  bg-dark text-white">
+            <div class="card-header">
+                Customer Reviews
+                <button id="newItem" class="btn btn-sm btn-success float-right">
+                    <i class="mdi mdi-plus"></i>
+                </button>
+            </div>
+            <div class="card-footer bg-light">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.ReviewPageTitle.StartsWith("Pending")? "active" : "")"
+                           href="@Url.Action("PendingReviews", "Admin")">Pending</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.ReviewPageTitle.StartsWith("Rejected")? "active" : "")"
+                           href="@Url.Action("RejectedReviews", "Admin")">Rejected</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.ReviewPageTitle.StartsWith("Approved")? "active" : "")"
+                           href="@Url.Action("ApprovedReviews", "Admin")">Approved</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.ReviewPageTitle.StartsWith("Live")? "active" : "")"
+                           href="@Url.Action("LiveReviews", "Admin")">Live</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-block">
+                <div class="card-body bg-light text-dark">
+                    <p>
+                        Look over the existing customer reviews.  Unapproved reviews will not display on the site until approved.
+                        Approved reviews are copied to a new table and will be added to the display rotation.
+                    </p>
+
+                    @Html.Partial("ReviewList", Model)
+                </div>
+            </div>
+        </div>
+       
+        
+
+    </div>
+</div>
+
+
+<div class="modal" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-primary">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Add Review</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="addArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-success">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Approve Review</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="editArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+           $(document).on('click', '.selectItem', function () {
+        var id = $(this).data("id");
+        $.ajax({
+            'url': "@Url.Action("ReviewReview", "Admin")?id="+id
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#editArea').html(data);
+                $('#edit').modal();
+            }
+        });
+    });
+
+     $(document).on('click', '#newItem', function () {
+
+        $.ajax({
+            'url': "@Url.Action("AddReview", "Admin")"
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#addArea').html(data);
+                $('#add').modal();
+            }
+        });
+    });
+    </script>
+
+}

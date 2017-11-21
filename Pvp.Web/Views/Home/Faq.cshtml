@@ -1,0 +1,23 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Faq>
+<div class="container-fluid bg-success pt-5 pb-5">
+    <div class="container text-white">
+        <h3>Frequently Asked Questions</h3>
+        <p>Here are some of the questions we get asked a lot.</p>
+
+        @foreach (var item in Model.OrderBy(p => p.DisplayOrder))
+        {
+            <div class="card bg-light text-dark">
+                <div class="faqQuestionGroup">
+                    <div class="faqQuestion card-body" data-id="@item.Id">
+                        @Html.Raw(item.Question)
+                    </div>
+                    <div class="faqAnswer card-footer">
+                        @Html.Raw(item.Answer)
+                    </div>
+                </div>
+            </div>
+            <br/>
+        }
+    </div>
+</div>

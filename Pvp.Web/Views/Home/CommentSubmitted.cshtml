@@ -1,14 +1,14 @@
 ﻿@using Pvp.Web.AppLogic.Models.DTO
+@using Pvp.Web.AppLogic.Models.DTO.Abstract
 @model CustomerReview
-
 
 <div class="container pt-4 mt-5">
     <div class="card">
-        <div class="card-header text-center">
-            Thank you for your comment!
+        <div class="card-header text-center bg-success text-light">
+            <h2>Thank you for your comment!</h2>
         </div>
         <div class="card-body">
-            @Html.Partial("_CommentCardItem", Model)
+            @Html.Partial("_CommentCardItem", new Review(Model))
         </div>
     </div>
 </div>

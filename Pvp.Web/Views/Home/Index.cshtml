@@ -1,7 +1,11 @@
-﻿@{
+﻿@using Pvp.Web.AppLogic.Models.ViewModels
+@model IndexPageViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
+@if (Model.Carousels.Count > 0 || true)
+{
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -10,18 +14,18 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block img-fluid w-100" src="~/Images/cannabis-2150543_1280.jpg" alt="Excellence and Compassion">
+            <img class="d-block img-fluid w-100" src="~/Images/sliders/s1.jpg" alt="Excellence and Compassion">
             <div class="carousel-caption d-none d-md-block">
                 <h3> Serving You with Excellence and Compassion</h3>
                 <p>
-                    As strong believers in the Lynn and Erin Compassionate Use Act, Pecos Valley Pharmaceuticals
+                    As strong believers in the Lynn and Erin Compassionate Use Act, Pecos Valley Producers
                     works to make medical cannabis accessible to all approved New Mexico patients. We are a
                     compassionate provider of marijuana, edibles, and marijuana-infused products.
                 </p>
             </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="~/Images/pexels-photo-48709.jpeg" alt="Quality Products">
+            <img class="d-block w-100" src="~/Images/sliders/s3.jpg" alt="Quality Products">
             <div class="carousel-caption d-none d-md-block">
                 <h3>Committed to Quality</h3>
                 <p>
@@ -32,7 +36,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="~/Images/heart-1616465_1920.jpg" alt="Patient Care">
+            <img class="d-block w-100" src="~/Images/sliders/s4.jpg" alt="Patient Care">
             <div class="carousel-caption d-none d-md-block">
                 <h3>We're committed to excelence in patient care</h3>
                 <p>
@@ -50,50 +54,90 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+}
 
-
-<div class="container mt-4 pb-5">
-    <div class="row">
-        <div class="col-md-9 col-sm-12">
-            <h2>Welcome to Pecos Valley Pharmaceuticals</h2>
-            <p>We are New Mexico’s premiere medical marijuana dispensary.</p>
-            <p>We offer a variety of organically grown, high quality medical cannabis, extracts, edibles, marijuana drinks, tinctures, infused products, and so much more. As New Mexico’s newest shop, we offer the best products from the most trusted vendors with the most reliable cannabis products that we know will work for you our patrons.</p>
-            <p>Our newly-opened medical marijuana shop in Roswell offers a comfortable atmosphere that showcases the most innovative cannabis products with tested medicinal benefits of the cannabis plant that can be used in your daily life as a life-saving alternative medicine.</p>
-            <p> We offer products such as dried cannabis flower buds, edibles, and concentrates such as wax, shatter and live resin. We also offer pre-rolled cones, vape pens, tinctures, lotions, salves and cannabis accessories and apparel. Our dedicated staff welcomes you and proudly serves the state of New Mexico medical cannabis patients. </p>
-            <p>We pride ourselves on the safety, quality and purity of our strains of flowers, edibles, and concentrates. We are your one stop shop for all your Medical Cannabis needs.</p>
-        </div>
-        <div class="col-md-3 hidden-sm-down">
-            <div class="circle-image products"></div>
+<div class="container-fluid bg-light">
+    <div class="container pt-4 pb-5">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Welcome to Pecos Valley Producers</h2>
+                <p>We are New Mexico’s premiere medical marijuana dispensary.</p>
+                <p>We offer a variety of organically grown, high quality medical cannabis, extracts, edibles, marijuana drinks, tinctures, infused products, and so much more. As New Mexico’s newest shop, we offer the best products from the most trusted vendors with the most reliable cannabis products that we know will work for you our patrons.</p>
+                <p>Our newly-opened medical marijuana shop in Roswell offers a comfortable atmosphere that showcases the most innovative cannabis products with tested medicinal benefits of the cannabis plant that can be used in your daily life as a life-saving alternative medicine.</p>
+                <p> We offer products such as dried cannabis flower buds, edibles, and concentrates such as wax, shatter and live resin. We also offer pre-rolled cones, vape pens, tinctures, lotions, salves and cannabis accessories and apparel. Our dedicated staff welcomes you and proudly serves the state of New Mexico medical cannabis patients. </p>
+                <p>We pride ourselves on the safety, quality and purity of our strains of flowers, edibles, and concentrates. We are your one stop shop for all your Medical Cannabis needs.</p>
+            </div>
+            <div class="col-md-3 hidden-sm-down">
+                <div class="circle-image products"></div>
+            </div>
         </div>
     </div>
 </div>
+
 
 
 <div class="container-fluid pt-5 pb-5 bg-dark">
-
-    <div class="card border-0">
-        <div class="card-header text-center">
-            <h3>Marketing Info, Menu, and Appointments</h3>
-        </div>
-        <div class="card-deck">
+    <div class="card-deck">
+        @foreach (var item in Model.Marketings)
+            {
             <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><h3>@item.PostTitle</h3></div>
+                </div>
                 <div class="card-body">
-                    Curabitur sit amet auctor erat. Vivamus lobortis tellus id ultricies blandit. Quisque non ultricies ligula, et rutrum magna. Duis tempor, enim id elementum scelerisque, ante odio pharetra orci, eu interdum nulla dui sed ex. Aenean convallis odio non suscipit vehicula. Nullam vulputate mollis augue, eu gravida sapien posuere in. Curabitur lacinia eros vel tellus rhoncus fringilla. Donec ut porta ipsum. Nulla convallis tellus sed felis aliquam ultrices. Aenean mattis quam eget vehicula sagittis. Aenean sed viverra urna, a mattis mi. Aenean ut tellus odio
+                    @Html.Raw(item.PostHtml)
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on: @item.CreatedDate.ToShortDateString()
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    Maecenas rhoncus risus eu lacinia viverra. Vivamus vitae auctor odio. Maecenas vitae interdum nunc. Curabitur velit ipsum, consequat id iaculis quis, hendrerit vel augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam vulputate varius purus, ut bibendum quam rhoncus quis. Suspendisse dui est, pretium sit amet turpis eget, auctor porta justo. Ut ultricies purus a euismod sodales. Ut at tempus metus, eget vestibulum tortor. Maecenas vitae purus id quam sodales dignissim. Maecenas nibh tortor, porta ut porta nec, cursus a lorem.
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    Morbi sed lacus mi. Suspendisse rutrum lacinia ante id pulvinar. Aliquam condimentum mauris vel lacus scelerisque faucibus. Aliquam dignissim, ante id porta molestie, sem nunc ornare erat, sit amet lobortis augue enim id nulla. Suspendisse tempus tincidunt molestie. Integer dignissim dictum commodo. Ut vel venenatis ante. Aliquam ac nibh dapibus, venenatis justo vel, volutpat arcu. Pellentesque pulvinar ac sapien in pharetra. Ut vel orci lacinia, cursus tortor vel, hendrerit sem. In faucibus dapibus purus eu malesuada. Morbi convallis, metus vitae bibendum tincidunt, ligula lectus dignissim ex, non sodales ante magna at ligula. Suspendisse potenti. Cras nec ante vel purus consectetur efficitur. Aliquam fringilla tempus dui vitae porttitor.
-                </div>
-            </div>
-        </div>
+        }
     </div>
-
 </div>
+@if (Model.Articles.Count > 0)
+{
+<div class="container-fluid bg-light pt-5 pb-5">
+    <div class="container bg-success text-light pt-3 pb-3">
+     
+            <h2>Articles</h2>
+            @foreach (var item in Model.Articles)
+            {
+                <div class="card text-dark">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3>@item.PostTitle</h3>
+                            <span class="text-muted">
+                                Posted: @item.ModifiedDate.ToShortDateString()
+                                by @(item.CreatedBy ?? "PVP Team")
+                            </span>
+                        </div>
+                    </div>
 
-@Html.Partial("_CommentCardList")
+                    <div class="card-body">
+                        @Html.Raw(item.PostHtml)
+                    </div>
+                </div>
+            }
+       
+    </div>
+</div>
+ }
+<div id="ReviewArea"></div>
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                'url': "@Url.Action("ReviewArea", "Home")"
+                , 'method': 'GET'
+                , 'success': function (data) {
+                    $('#ReviewArea').html(data);
+                }
+            })
+        });
+
+    </script>
+
+}

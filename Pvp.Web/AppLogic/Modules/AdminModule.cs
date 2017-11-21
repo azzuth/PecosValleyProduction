@@ -68,14 +68,73 @@ namespace Pvp.Web.AppLogic.Modules
 
 
         // List rejected customer reviews // List pending customer reviews // List Approved Reviews
+
+        public void DeleteCustomerReview(int id)
+        {
+            var item = _context.CustomerReviews.Find(id);
+            _context.CustomerReviews.Remove(item);
+            _context.SaveChanges();
+        }
+        public void DeleteReview(int id)
+        {
+            var item = _context.Reviews.Find(id);
+            _context.Reviews.Remove(item);
+            _context.SaveChanges();
+
+        }
         private IList<CustomerReview> CustomerReivews(bool? status = null) =>
-            _context.CustomerReviews.AsNoTracking().Where(p => p.Approved == status).ToList();
+            _context.CustomerReviews
+                .Include("Location")
+                .AsNoTracking()
+                .Where(p => p.Approved == status).ToList();
 
         public IList<CustomerReview> CustomerReviewsPending => CustomerReivews();
         public IList<CustomerReview> CustomerReviewsApproved => CustomerReivews(true);
         public IList<CustomerReview> CustomerReviewsRejected => CustomerReivews(false);
 
-        public IList<Review> CustomerReviewsForDisplay => _context.Reviews.AsNoTracking().ToList();
+        public IList<Faq> Faqs => _context.Faqs.AsNoTracking().ToList();
+        public Faq GetFaq(int id) => _context.Faqs.Find(id);
+        public Faq AddFaq(Faq faq)
+        {
+            var item = _context.Faqs.Add(faq);
+            _context.SaveChanges();
+            return item;
+        }
+        public Faq EditFaq(Faq faq)
+        {
+            _context.Faqs.Attach(faq);
+            _context.Entry(faq).State = EntityState.Modified;
+            _context.SaveChanges();
+            return faq;
+        }
+        public void DeleteFaq(int id)
+        {
+            var item = _context.Faqs.Find(id);
+            _context.Faqs.Remove(item);
+            _context.SaveChanges();
+        }
+
+        public IList<Publication> Publications => _context.Publications.AsNoTracking().ToList();
+        public Publication GetPublication(int id) => _context.Publications.Find(id);
+        public Publication AddPublication(Publication publication)
+        {
+            var item = _context.Publications.Add(publication);
+            _context.SaveChanges();
+            return item;
+        }
+        public Publication EditPublication(Publication publication)
+        {
+            _context.Publications.Attach(publication);
+            _context.Entry(publication).State = EntityState.Modified;
+            _context.SaveChanges();
+            return publication;
+        }
+        public void DeletePublication(int id)
+        {
+            var item = _context.Publications.Find(id);
+            _context.Publications.Remove(item);
+            _context.SaveChanges();
+        }
 
         public CustomerReview RejectCustomerReview(int id, string currentUser)
         {

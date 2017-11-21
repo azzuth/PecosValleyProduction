@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Pvp.Web.AppLogic.Models.DTO;
+using Pvp.Web.AppLogic.Models.DTO.Abstract;
+using Microsoft.Owin;
 
 namespace Pvp.Web.Controllers
 {
@@ -18,14 +20,22 @@ namespace Pvp.Web.Controllers
             _main = new MainModule();
         }
 
+        string key = "PvpHomeId";
+
         public ActionResult Index()
         {
-            return View();
+            return View(_main.LoadIndexPage());
         }
 
         public ActionResult SocialMedia()
         {
             return View();
+        }
+
+        public ActionResult Menu()
+        {
+            var model = _main.Locations;
+            return View(model);
         }
 
         public ActionResult Reviews()
@@ -40,6 +50,28 @@ namespace Pvp.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult LocationList()
+        {
+            var items = _main.Locations;
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Locations()
+        {
+            var items = _main.Locations;
+            return View(items);
+        }
+
+        //TODO: Find solution to this.
+        public void SetHomeId(string id)
+        {
+            var cookie = new HttpCookie(key, id);
+            cookie.Expires = DateTime.Now.AddDays(30);
+            Response.AppendCookie(cookie);
+            
+        }
+
         public ActionResult Videos()
         {
             return View();
@@ -52,7 +84,15 @@ namespace Pvp.Web.Controllers
 
         public ActionResult FAQ()
         {
-            return View();
+            var model = _main.Faqs;
+            return View("Faq", model);
+        }
+
+        [HttpGet]
+        public ActionResult ReviewArea()
+        {
+            var model = _main.CustomerReviewsForDisplay;
+            return PartialView("_CommentCardList", model);
         }
 
         [HttpGet]
@@ -67,10 +107,28 @@ namespace Pvp.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.IpAddress = Request.UserHostAddress;        
-                model = _main.SubmitCustomerReview(model);
+                var response = _main.AttemptResponse(() => { 
+                    model.IpAddress = Request.UserHostAddress;        
+                    model = _main.SubmitCustomerReview(model);
+                    return model;
+                });
+
+                if (response.Success)
+                {
+                    return View("CommentSubmitted", response.ReturnObject);
+                }
+                else
+                {
+                    return RedirectToAction("HandleError", "Home", new { message = response.Message });
+                }
             }
-            return View("CommentSubmitted", model);
+            return View(model);
         }
+
+        public ActionResult HandleError(string message)
+        {
+            return View(viewName: "ErrorMessage", model: message);
+        }
+
     }
 }

@@ -1,0 +1,51 @@
+﻿@using Pvp.Web.AppLogic.Models.ViewModels
+@model ManageReviewPage
+
+<div class="card bg-success text-white">
+    <div class="card-header">
+        @Model.ReviewPageTitle
+    </div>
+    <div class="card-body bg-light text-dark">
+        <table class="table table-hover table-striped">
+            <thead>
+
+            </thead>
+            <tr>
+                <th>Rating</th>
+                <th>Location</th>
+                <th>Comment</th>
+                <th>Created On</th>
+                <th>IP Address</th>
+                <th>Delete</th>
+            </tr>
+            <tbody>
+                @if (Model.Reviews == null || Model.Reviews.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="5">
+                            There are no reviews in this list.
+                        </td>
+                    </tr>
+                }
+                @foreach (var review in Model.Reviews.OrderByDescending(p=>p.CreatedDate))
+                {
+                    <tr class="@(Model.EditMode == true ? $"selectItem" : "")" data-id="@review.Id">
+                        <td>@Html.Partial("_CommentRating", review.Rating)</td>
+                        <td>@(review.Location != null ? review.Location.DisplayName : "")</td>
+                        <td>@review.Comment</td>
+                        <td>@review.CreatedDate</td>
+                        <td>@review.IpAddress</td>
+                        <td>
+                            @using (Html.BeginForm("DeleteReview", "Admin"))
+                            {
+                                @Html.Hidden("id", review.Id)
+                                @Html.Hidden("reviewTitlePage", Model.ReviewPageTitle)
+                                <button type="submit" class="btn btn-danger float-right"><i class="mdi mdi-delete"></i></button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

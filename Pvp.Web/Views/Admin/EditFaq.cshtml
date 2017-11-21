@@ -1,0 +1,19 @@
+﻿
+@using Pvp.Web.AppLogic.Models.DTO
+@model Faq
+
+<div class="container">
+    @using (Html.BeginForm("EditFaq", "Admin", FormMethod.Post))
+    {
+
+
+        @Html.Partial("_faqForm", Model)
+
+        <button type="submit" class="btn btn-success float-left"><i class="mdi mdi-content-save"></i> Save Changes</button>
+    }
+    @using (Html.BeginForm("DeleteFaq", "Admin", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <button type="submit" class="btn btn-danger float-right"><i class="mdi mdi-delete"></i></button>
+    }
+</div>

@@ -3,9 +3,11 @@
 
 <div class="container">
     @using (Html.BeginForm("EditLocation", "Admin", FormMethod.Post))
-            {
-        @Html.Partial("_locationForm", Model)
+    {
 
+        
+            @Html.Partial("_locationForm", Model)
+       
         <button type="submit" class="btn btn-success float-left"><i class="mdi mdi-content-save"></i> Save Changes</button>
     }
     @using (Html.BeginForm("DeleteLocation", "Admin", FormMethod.Post))

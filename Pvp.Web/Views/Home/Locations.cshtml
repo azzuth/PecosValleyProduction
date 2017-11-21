@@ -1,0 +1,46 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Location>
+
+
+<div class="container text-light pt-4 pb-4">
+    <h2>Pecos Valley Producer's Store Locations</h2>
+
+    @foreach (var location in Model)
+    {
+        @Html.Partial("_LocationDetails", location)
+    }
+</div>
+
+
+@section scripts{
+
+    <script>
+
+        
+
+        $(document).ready(function(){
+
+            if (homeLocationId > 0) {
+                selectHomeLocation(homeLocationId);
+            }
+
+            function selectHomeLocation(id) {
+                $('.setHome:not([data-locationid="' + id + '"])').show();
+                $('.myHome:not([data-locationid="' + id + '"])').hide();
+                $('.setHome[data-locationid="' + id + '"]').hide();
+                $('.myHome[data-locationid="' + id + '"]').show();
+                $(document).trigger('homeLocationChanged');
+            }
+
+            $(document).on('click', '.setHome', function () {
+                homeLocationId = $(this).data('locationid');
+                
+                localStorage.setItem("homeLocationId", homeLocationId);
+                selectHomeLocation(homeLocationId);
+            })
+
+        });
+
+    </script>
+
+}

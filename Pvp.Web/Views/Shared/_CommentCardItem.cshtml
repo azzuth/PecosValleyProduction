@@ -5,7 +5,7 @@
     <div class="card-header border-success">
         <h5 class="text-success">
         <i class="mdi mdi-comment-account"></i>
-        @Model.Name</h5>
+        @(string.IsNullOrEmpty(Model.Name) ? "Anonymous" : Model.Name)</h5>
     </div>
     <div class="card-body text-dark">        
         @Html.Partial("_CommentRating", Model.Rating)

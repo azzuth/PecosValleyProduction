@@ -8,6 +8,20 @@ namespace Pvp.Web.AppLogic.Models.DTO.Abstract
 {
     public class Review : DbObject
     {
+
+        public Review()
+        {
+
+        }
+
+        public Review(CustomerReview customerReview)
+        {
+            this.Comment = customerReview.Comment;
+            this.DateOfReview = customerReview.CreatedDate;
+            this.Location = customerReview.Location;
+            this.Rating = customerReview.Rating;
+        }
+
         public string Name { get; set; }
         public string Comment { get; set; }
         public int? Rating { get; set; }

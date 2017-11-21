@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Faq>
+
+<div class="container-fluid pt-3 pb-4">
+    <div class="card bg-dark text-white">
+        <div class="card-header">
+            Frequently Asked Locations
+            <button id="newItem" class="btn btn-sm btn-success float-right">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+        <div class="card-body bg-light text-dark">
+
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var faq in Model)
+                    {
+                        <tr class="selectItem" data-id="@faq.Id">
+                            <td>@faq.DisplayOrder</td>
+                            <td>@Html.Raw(faq.Question)</td>
+                            <td>@Html.Raw(faq.Answer)</td>
+                            <td>@(faq.Active ? "Active" : "Disabled")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-primary">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Add FAQ</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="addArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-success">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Edit FAQ</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="editArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script>
+
+    $(document).on('click', '.selectItem', function () {
+        var id = $(this).data("id");
+        $.ajax({
+            'url': "@Url.Action("EditFaq", "Admin")?id="+id
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#editArea').html(data);
+                $('#edit').modal();
+            }
+        });
+    });
+
+     $(document).on('click', '#newItem', function () {
+
+        $.ajax({
+            'url': "@Url.Action("AddFaq", "Admin")"
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#addArea').html(data);
+                $('#add').modal();
+            }
+        });
+    });
+
+
+    </script>
+
+}

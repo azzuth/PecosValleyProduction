@@ -1,4 +1,6 @@
-﻿
+﻿@using Pvp.Web.AppLogic.Models.DTO.Abstract
+@model IEnumerable<Review>
+
 <div class="container-fluid pt-5 pb-5 bg-secondary">
     <div class="container">
         <div class="card bg-faded">
@@ -32,17 +34,15 @@
                         </div>
                     </div>
 
-                    @*@Html.Partial("_CommentCardItem", 2)
-     @Html.Partial("_CommentCardItem", 0)
-     @Html.Partial("_CommentCardItem", 5)
-     @Html.Partial("_CommentCardItem", 1)
-     @Html.Partial("_CommentCardItem", 3)
-    @Html.Partial("_CommentCardItem", 0)*@
+                    @foreach (var review in Model)
+                    {
+                        @Html.Partial("_CommentCardItem", review)
+                    }
 
                     <div class="card border-success">
                         <div class="card-body text-dark">
                             <p class="card-text">See more comments</p>
-                            <div class="btn btn-success"><i class="mdi mdi-comment-multiple-outline"></i> Comments page</div>
+                            <a href="@Url.Action("Reviews","Home")" class="btn btn-success"><i class="mdi mdi-comment-multiple-outline"></i> Comments page</a>
                         </div>
                     </div>
                 </div>

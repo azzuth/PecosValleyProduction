@@ -15,6 +15,7 @@ namespace Pvp.Web.AppLogic.Models.DTO
         }
         public ApprovedReview(CustomerReview review)
         {
+            this.LocationId = review.LocationId;
             this.Comment = review.Comment;
             this.Rating = review.Rating;
             this.DateOfReview = review.CreatedDate;

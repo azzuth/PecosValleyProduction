@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Publication>
+
+<link rel="Stylesheet" type="text/css" href="~/content/jHtmlArea/jHtmlArea.css" />
+
+
+<div class="container-fluid pt-3 pb-4">
+    <div class="card bg-dark text-white">
+        <div class="card-header">
+            Page Publication
+            <button id="newItem" class="btn btn-sm btn-success float-right">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+        <div class="card-body bg-light text-dark">
+
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Page Location</th>
+                        <th>Title</th>
+                        <th>Text</th>
+                        <th>Expires</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var publication in Model)
+                    {
+                        <tr class="selectItem" data-id="@publication.Id">
+                            <td>@publication.PageLocation</td>
+                            <td>@publication.PostTitle</td>
+                            <td>@Html.Raw(publication.PostHtml)</td>
+                            <td>@publication.ExpiresOn.ToShortDateString()</td>
+                            <td>@(publication.Active ? "Active" : "Disabled")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-primary">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Add Publication</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="addArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-success">
+            <div class="modal-header text-white">
+                <h5 class="modal-title">Edit Publication</h5>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-light">
+                <div id="editArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+<script type="text/javascript" src="~/Scripts/jHtmlArea-0.8.min.js"></script>
+    <script>
+
+    $(document).on('click', '.selectItem', function () {
+        var id = $(this).data("id");
+        $.ajax({
+            'url': "@Url.Action("EditPublication", "Admin")?id="+id
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#editArea').html(data);
+                $('#edit').modal();
+                $('#PostHtml').htmlarea();
+            }
+        });
+    });
+
+     $(document).on('click', '#newItem', function () {
+
+        $.ajax({
+            'url': "@Url.Action("AddPublication", "Admin")"
+            , 'method': 'GET'
+            , 'success': function (data) {
+                $('#addArea').html(data);
+                $('#add').modal();
+                $('#PostHtml').htmlarea();
+            }
+        });
+    });
+
+
+        $(document).ready(function () {
+
+            $('#PostHtml').htmlarea();
+
+        });
+
+    </script>
+
+}

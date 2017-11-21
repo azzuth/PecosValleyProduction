@@ -1,4 +1,10 @@
-﻿
+﻿.anchor {
+    display: block;
+    height: 115px; /*same height as header*/
+    margin-top: -115px; /*same height as header*/
+    visibility: hidden;
+}
+
 .circle-image {
     border: 3px solid #38b92a;
     min-width: 300px;
@@ -44,11 +50,19 @@
     }
 }
 
-.selectItem, .ratingStar:hover {
+.modal-lg {
+    max-width: 80% !important;
+}
+
+.selectItem, .ratingStar:hover, .clickable {
     cursor: pointer;
 }
 .border-dark {
     border-bottom: 2px solid black;
+}
+
+h2, h3 {
+    font-family: 'Satisfy', cursive;
 }
 
 /*.card-body:not(.bg-white){
@@ -73,17 +87,45 @@
 
 /*body{
     background: url("../Images/bg19.png");
-}
+}*/
 
-.container-fluid.bg-success{
+.container-fluid.bg-logo {
+    background: url("../Images/pvpwebbackgroundDarker.jpg") center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
+    background-color: rgba(52, 58, 64, 0.75) !important;
+}
+.container-fluid.bg-success {
+    background: url("../Images/pvpwebpagebackgroundsuccess.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-color: rgba(48, 167, 69, 0.75) !important;
 }
 .container-fluid.bg-dark {
+    background: url("../Images/pvpwebpagebackgrounddark.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-color: rgba(52, 58, 64, 0.75) !important;
 }
-.container-fluid.bg-secondary {
+.container-fluid.bg-secondary, body {
+    background: url("../Images/pvpwebpagebackgroundsecondary.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-color: rgba(134, 142, 150, 0.75) !important;
 }
 .container-fluid.bg-light {
+    background: url("../Images/pvpwebpagebackgroundlight.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-color: rgba(248, 249, 250, 0.75) !important;
-}*/
+}

@@ -1,0 +1,45 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model  Location
+
+
+<span id="@Model.DisplayName" class="anchor"></span>
+<div class="card text-dark bg-light border-success mt-3 mb-3">
+
+    <div class="card-header  border-success">
+        <div class="float-left">
+            <h3 class="location"><i class="mdi mdi-map-marker"></i> @Model.DisplayName</h3>
+            <div class="hours"><i class="mdi mdi-calendar"></i> @Model.HoursOfOperation</div>
+        </div>
+        @if (ViewBag.HomeId == Model.Id.ToString())
+        {
+            <span>HOME</span>
+        }
+        <div class="float-right myHome" display="none" data-locationid="@Model.Id">
+            <i class="mdi mdi-home"></i> This is your home location
+        </div>
+        <div class="btn btn-primary float-right setHome" display="none" data-locationid="@Model.Id">
+            <i class="mdi mdi-home"></i> Set as my home location
+        </div>
+
+    </div>
+    <div class="information card-body bg-light  text-dark">
+        <div class="float-left">
+            <div class="card-title">
+                <a href="tel://1-@Model.PhoneNumber"><i class="mdi mdi-phone"></i>  1-@Model.PhoneNumber</a>
+            </div>
+            <address class="address card-text">
+                @Model.Address <br />
+                @Model.City, @Model.StateAbbreviation @Model.ZipCode
+            </address>
+        </div>
+        <div class="float-right">
+            @for (var i = 1; i < 4; i++)
+            {
+                <a href="~/Images/locations/@($"{Model.DisplayName}{i}.jpg")" target="_blank">
+                    <img src="~/Images/locations/@($"{Model.DisplayName}Thumb{i}.jpg")" style="width:200px;" />
+                </a>
+            }
+        </div>
+    </div>
+</div>
+

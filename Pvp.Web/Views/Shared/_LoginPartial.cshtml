@@ -1,22 +1,22 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Manage")" title="account"><i class="mdi mdi-account"></i> Manage</a></li>
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
 
-    
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Index", "Manage")">Hello @User.Identity.GetUserName() !</a>
-        </li>
-        <li class="nav-item"><a  class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    
+            <a  class="nav-link" href="javascript:document.getElementById('logoutForm').submit()" title="logout">
+            <i class="mdi mdi-logout"></i> Logout
+            </a>
+    </li>
     }
 }
 else
 {
-  
-        <li class="nav-item"><a class="nav-link" href="@Url.Action("Register", "Account")" id="registerLink">Register</a></li>
-        <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Account")" id="loginLink">Login</a></li>
-   
+    
+        <li class="nav-item"><a class="nav-link" href="@Url.Action("Register", "Account")" id="registerLink" title="Register"><i class="mdi mdi-account-plus"></i> Register</a></li>
+        <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Account")" id="loginLink" title="Login"><i class="mdi mdi-login"></i> Login</a></li>
+    
 }

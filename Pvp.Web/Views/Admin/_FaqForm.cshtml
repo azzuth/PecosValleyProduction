@@ -1,0 +1,22 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model Faq
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m=>m.Id)
+
+<div class="form-group">
+    @Html.LabelFor(p => p.DisplayOrder)
+    @Html.TextBoxFor(p => p.DisplayOrder, new { @class = "form-control", @aria_describedby = "questionHelp", placeholder = "Enter a question" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.Question)
+    @Html.TextAreaFor(p => p.Question, new { @class = "form-control", @aria_describedby = "questionHelp", placeholder = "Enter a question" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.Answer)
+    @Html.TextAreaFor(p => p.Answer, new { @class = "form-control", @aria_describedby = "answerHelp", placeholder = "Enter the answer" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(p => p.Active)
+    @Html.CheckBoxFor(p => p.Active)
+</div>

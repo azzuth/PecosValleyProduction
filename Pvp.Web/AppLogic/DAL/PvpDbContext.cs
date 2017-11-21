@@ -13,7 +13,12 @@ namespace Pvp.Web.AppLogic.DAL
     public class PvpDbContext : DbContext
     {
 
-        public PvpDbContext() : base("PvpDb")
+        public PvpDbContext()
+#if DEBUG
+            : base("PvpDbLocal")
+#else
+            : base("PvpDb")
+#endif
         {
             this.Database.CreateIfNotExists();
         }
@@ -34,5 +39,10 @@ namespace Pvp.Web.AppLogic.DAL
 
         public DbSet<IpBlacklist> IpBlacklists { get; set; }
         public DbSet<RequestAttemptLog> RequestAttemptLogs { get; set; }
+
+        // Marketing/Publications
+        public DbSet<Publication> Publications { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
+
     }
 }

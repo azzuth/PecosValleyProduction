@@ -1,0 +1,16 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO.Abstract
+@model Review
+
+@using (Html.BeginForm("ApproveReview","Admin", FormMethod.Post))
+{
+    <div class="pb-3">
+        @Html.Partial("_CommentCardItem", Model)
+    </div>
+        @Html.HiddenFor(m => m.Id)
+        <button type="submit" class="btn btn-success float-left">Approve</button>
+}
+@using (Html.BeginForm("RejectReview","Admin"))
+{
+    @Html.HiddenFor(m=>m.Id)
+    <button type="submit" class="btn btn-danger float-right">Reject</button>
+}

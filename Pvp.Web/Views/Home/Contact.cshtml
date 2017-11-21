@@ -5,9 +5,8 @@
     var locationsItems = (IEnumerable<Location>)ViewBag.Locations;
     var selectItems = locationsItems.Select(p => new SelectListItem() { Text = $"{p.DisplayName} - {p.Address}", Value = $"{p.Id}" });
 }
-
-<a id="contactRequest"></a><br />
-<div class="container-fluid mt-5 pt-5 pb-4 bg-light">
+<span id="contactRequest" class="anchor"></span>
+<div class="container-fluid pt-5 pb-4 bg-light">
     <div class="container">        
         <h3>Let us help you out with any questions</h3>
         <p>
@@ -30,8 +29,8 @@
     </div>
 </div>
 
-<a id="comment"></a><br/>
-<div class="container-fluid pt-5 pb-4 bg-dark">
+<span id="comment" class="anchor"></span>
+<div class="container-fluid pt-5 pb-4 bg-dark" id="">
     <div class="container pb-4  text-white">
         <h3>Help us out with a review and earn a discount</h3>
         <p>

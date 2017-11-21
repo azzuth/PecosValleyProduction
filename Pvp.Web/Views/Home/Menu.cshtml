@@ -1,36 +1,26 @@
-﻿
-<div class="container-fluid bg-success  pt-5 pb-5">
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model IEnumerable<Location>
 
-        <div class="container pt-3 pb-3">
-            <div class="card">
-                <h3>Check out our menu</h3>
-
-
-
-                <div class="card text-center">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">Carlsbad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Location 2</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Location 3</a>
-                            </li>
-                            <li class="nav-item disabled">
-                                <a class="nav-link" href="#">Location 4 (coming soon)</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-
-                        <i class="mdi mdi-loading mdi-spin"></i> Loading menu ...
-                                                
-                    </div>
-                </div>
+<div class="container-fluid bg-success pt-5 pb-5">
+    <div class="container pt-3 pb-3 text-light">
+        <h2>Check out our menus</h2>
+        <div class="card text-dark">
+            <div class="card-header">
+                
+                    Choose a location
+                    <select>
+                        @foreach(var loc in Model)
+                        {
+                            <option>@loc.DisplayName</option>
+                        }
+                    </select>
+                    to see that Menu
+                
+            </div>
+            <div class="card-body">
+                <i class="mdi mdi-loading mdi-spin"></i> Loadin Menu ...
             </div>
         </div>
 
+    </div>
 </div>

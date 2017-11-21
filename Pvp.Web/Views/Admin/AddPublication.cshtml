@@ -1,0 +1,13 @@
+﻿@using Pvp.Web.AppLogic.Models.DTO
+@model Publication
+
+    <div class="container">
+
+        @using (Html.BeginForm("AddPublication", "Admin", FormMethod.Post))
+        {
+            @Html.Partial("_PublicationForm")
+
+            <button type="submit" class="btn btn-success">Create New Publication</button>
+        }
+
+    </div>

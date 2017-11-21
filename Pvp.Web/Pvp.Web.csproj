@@ -202,13 +202,17 @@
     <Compile Include="AppLogic\Models\DTO\ApprovedReview.cs" />
     <Compile Include="AppLogic\Models\DTO\BioTrackThcMenu.cs" />
     <Compile Include="AppLogic\Models\DTO\CustomerReview.cs" />
+    <Compile Include="AppLogic\Models\DTO\Faq.cs" />
     <Compile Include="AppLogic\Models\DTO\IpBlacklist.cs" />
     <Compile Include="AppLogic\Models\DTO\Location.cs" />
     <Compile Include="AppLogic\Models\DTO\AppointmentRequest.cs" />
     <Compile Include="AppLogic\Models\DTO\ContactRequest.cs" />
     <Compile Include="AppLogic\Models\DTO\ExternalReview.cs" />
+    <Compile Include="AppLogic\Models\DTO\Publication.cs" />
     <Compile Include="AppLogic\Models\DTO\RequestAttemptLog.cs" />
+    <Compile Include="AppLogic\Models\ViewModels\IndexPageViewModel.cs" />
     <Compile Include="AppLogic\Models\ViewModels\LocationDetails.cs" />
+    <Compile Include="AppLogic\Models\ViewModels\ManageReviewPage.cs" />
     <Compile Include="AppLogic\Modules\AdminModule.cs" />
     <Compile Include="AppLogic\Modules\MainModule.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -231,6 +235,18 @@
     <Compile Include="Migrations\201710210510318_initial.Designer.cs">
       <DependentUpon>201710210510318_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710310026339_faqsAndPublications.cs" />
+    <Compile Include="Migrations\201710310026339_faqsAndPublications.Designer.cs">
+      <DependentUpon>201710310026339_faqsAndPublications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710310058433_faqsAndPublications2.cs" />
+    <Compile Include="Migrations\201710310058433_faqsAndPublications2.Designer.cs">
+      <DependentUpon>201710310058433_faqsAndPublications2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710310245349_faqsAndPublications3.cs" />
+    <Compile Include="Migrations\201710310245349_faqsAndPublications3.Designer.cs">
+      <DependentUpon>201710310245349_faqsAndPublications3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -241,24 +257,74 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.Editor.css" />
+    <Content Include="Content\jHtmlArea\jHtmlArea.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
+    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\cannabis-1418332_1280sm.jpg" />
-    <Content Include="Images\cannabis-2150543_1280.jpg" />
-    <Content Include="Images\heart-1616465_1920.jpg" />
+    <Content Include="Images\locations\Carlsbad1.JPG" />
+    <Content Include="Images\locations\Carlsbad2.JPG" />
+    <Content Include="Images\locations\Carlsbad3.JPG" />
+    <Content Include="Images\locations\CarlsbadThumb1.JPG" />
+    <Content Include="Images\locations\CarlsbadThumb2.JPG" />
+    <Content Include="Images\locations\CarlsbadThumb3.JPG" />
+    <Content Include="Images\locations\Roswell1.JPG" />
+    <Content Include="Images\locations\Roswell2.JPG" />
+    <Content Include="Images\locations\Roswell3.JPG" />
+    <Content Include="Images\locations\Roswell4.JPG" />
+    <Content Include="Images\locations\RoswellThumb1.JPG" />
+    <Content Include="Images\locations\RoswellThumb2.JPG" />
+    <Content Include="Images\locations\RoswellThumb3.JPG" />
+    <Content Include="Images\locations\RoswellThumb4.JPG" />
+    <Content Include="Images\logo256.png" />
+    <Content Include="Images\logo256bwt.png" />
+    <Content Include="Images\logo256nc.png" />
+    <Content Include="Images\logo256nt.png" />
+    <Content Include="Images\logo256wnt.png" />
+    <Content Include="Images\logo48b.png" />
+    <Content Include="Images\logo64.png" />
+    <Content Include="Images\logoNoCircle.png" />
     <Content Include="Images\pexels-photo-48709.jpeg" />
+    <Content Include="Images\pvpwebbackgroundDarker.jpg" />
+    <Content Include="Images\pvpwebpagebackgrounddark.jpg" />
+    <Content Include="Images\pvpwebpagebackgroundlight.jpg" />
+    <Content Include="Images\pvpwebpagebackgroundsecondary.jpg" />
+    <Content Include="Images\pvpwebpagebackgroundsuccess.jpg" />
+    <Content Include="Images\sliders\s1.jpg" />
+    <Content Include="Images\sliders\s2.jpg" />
+    <Content Include="Images\sliders\s3.jpg" />
+    <Content Include="Images\sliders\s4.jpg" />
+    <Content Include="Images\sliders\sliders %281%29.JPG" />
+    <Content Include="Images\sliders\sliders %2810%29.JPG" />
+    <Content Include="Images\sliders\sliders %282%29.JPG" />
+    <Content Include="Images\sliders\sliders %283%29.JPG" />
+    <Content Include="Images\sliders\sliders %284%29.JPG" />
+    <Content Include="Images\sliders\sliders %285%29.JPG" />
+    <Content Include="Images\sliders\sliders %286%29.JPG" />
+    <Content Include="Images\sliders\sliders %287%29.JPG" />
+    <Content Include="Images\sliders\sliders %288%29.JPG" />
+    <Content Include="Images\sliders\sliders %289%29.JPG" />
     <Content Include="Images\submit-review-pvp2016.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\pecosvalleyproducers.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\projectmonocle.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\zipdaub.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\googleMap.js" />
+    <Content Include="Scripts\jHtmlArea-0.8.js" />
+    <Content Include="Scripts\jHtmlArea-0.8.min.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.js" />
+    <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -316,6 +382,27 @@
     <Content Include="Views\Shared\_LocationCard.cshtml" />
     <Content Include="Views\Home\CommentSubmitted.cshtml" />
     <Content Include="Views\Home\_ContactRequest.cshtml" />
+    <Content Include="Views\Admin\ReviewList.cshtml" />
+    <Content Include="Views\Home\ErrorMessage.cshtml" />
+    <Content Include="Views\Home\SocialMedia.cshtml" />
+    <Content Include="Views\Home\Reviews.cshtml" />
+    <Content Include="Views\Home\Videos.cshtml" />
+    <Content Include="Views\Admin\ManageReviews.cshtml" />
+    <Content Include="Views\Admin\ApproveReview.cshtml" />
+    <Content Include="Views\Home\Faq.cshtml" />
+    <Content Include="Views\Admin\_FaqForm.cshtml" />
+    <Content Include="Views\Admin\Faqs.cshtml" />
+    <Content Include="Views\Admin\AddFaq.cshtml" />
+    <Content Include="Views\Admin\EditFaq.cshtml" />
+    <Content Include="Views\Admin\_PublicationForm.cshtml" />
+    <Content Include="Views\Admin\AddPublication.cshtml" />
+    <Content Include="Views\Admin\EditPublication.cshtml" />
+    <Content Include="Views\Admin\Publications.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Home\Locations.cshtml" />
+    <Content Include="Views\Home\_LocationDetails.cshtml" />
+    <Content Include="Views\Home\Resources.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -339,6 +426,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710210510318_initial.resx">
       <DependentUpon>201710210510318_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710310026339_faqsAndPublications.resx">
+      <DependentUpon>201710310026339_faqsAndPublications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710310058433_faqsAndPublications2.resx">
+      <DependentUpon>201710310058433_faqsAndPublications2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710310245349_faqsAndPublications3.resx">
+      <DependentUpon>201710310245349_faqsAndPublications3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

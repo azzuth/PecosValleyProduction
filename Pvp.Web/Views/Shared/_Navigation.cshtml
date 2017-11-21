@@ -1,0 +1,69 @@
+﻿@{
+    var onHomePage = ViewBag.Title == "Home Page";
+}
+
+<nav class="navbar navbar-expand-lg navbar-toggleable-md navbar-dark bg-dark @(onHomePage ? "" : "fixed-top")">
+    <a class="navbar-brand" href="@Url.Action("Index","Home")">
+        <img src="~/Images/logo48b.png" />
+    </a>
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#pvpNav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="pvpNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Menu", "Home")">See Our Menu </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Contact Us
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="@Url.Action("Contact","Home")#contactRequest">Ask us a question</a>
+                    <a class="dropdown-item" href="@Url.Action("Contact","Home")#comment">Review Us!</a>
+                    <a class="dropdown-item" href="@Url.Action("SocialMedia","Home")">Social Media</a>
+                    @*<a class="dropdown-item" href="#">Apply for Employment</a>*@
+                    <a class="dropdown-item" href="@Url.Action("Reviews","Home")">Comments and Reviews</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Videos", "Home")">Videos</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Resources", "Home")">Resources</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("FAQ", "Home")">FAQ</a></li>
+
+            @if (User.Identity.IsAuthenticated && (User.IsInRole("Administrator") || User.Identity.Name == "admin@zipdaub.com"))
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="@Url.Action("Locations", "Admin")"><i class="mdi mdi-map-marker-multiple"></i> Locations</a>
+                        <a class="dropdown-item" href="@Url.Action("Faqs", "Admin")"><i class="mdi mdi-comment-question-outline"></i> FAQs</a>
+                        <a class="dropdown-item" href="@Url.Action("Publications", "Admin")"><i class="mdi mdi-file-document-box"></i> Publications</a>
+                        <a class="dropdown-item" href="@Url.Action("ManageReviews", "Admin")"><i class="mdi mdi-comment"></i> Manage Reviews</a>
+                    </div>
+                </li>
+            }
+        </ul>
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="LocationLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-home"></i> Locations
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="locationList">
+                    <a class="dropdown-item" href="@Url.Action("Locations", "Home")#Carlsbad">Carlsbad</a>
+                    <a class="dropdown-item" href="@Url.Action("Locations", "Home")#Roswell">Roswell</a>
+                    <a class="dropdown-item" href="@Url.Action("Locations", "Home")#LasCruses">Las Cruses</a>
+                </div>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+
+</nav>
+@if (!onHomePage)
+{
+    <div class="pt-5 mt-4"></div>
+}

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using Pvp.Web.AppLogic.Models.DTO.Abstract;
+using Pvp.Web.AppLogic.Models.ViewModels;
 
 namespace Pvp.Web.AppLogic.Modules
 {
@@ -25,10 +26,43 @@ namespace Pvp.Web.AppLogic.Modules
         }
 
         public IList<Location> Locations => _context.Locations.AsNoTracking().ToList();
+        public IList<Faq> Faqs => _context.Faqs.AsNoTracking().Where(p => p.Active).ToList();
+        public IList<Review> CustomerReviewsForDisplay => _context.Reviews.Include("Location").AsNoTracking().ToList();
+
+        public IList<Publication> Marketings => _context.Publications
+            .Where(p => p.Active 
+                && p.ExpiresOn > DateTime.Today 
+                && p.PageLocation == PageLocation.Marketing)
+            .Take(3)
+            .ToList();
+        public IList<Publication> Carousels => _context.Publications
+            .Where(p => p.Active
+                && p.ExpiresOn > DateTime.Today
+                && p.PageLocation == PageLocation.Carousel)
+            .Take(3)
+            .ToList();
+        public IList<Publication> Articles => _context.Publications
+            .Where(p => p.Active
+                && p.ExpiresOn > DateTime.Today
+                && p.PageLocation == PageLocation.Article)
+            .Take(5)
+            .ToList();
+
+        public IndexPageViewModel LoadIndexPage()
+        {
+            var model = new IndexPageViewModel()
+            {
+                Marketings = Marketings.ToList(),
+                Carousels = Carousels.ToList(),
+                Articles = Articles.ToList()
+            };
+            return model;
+        }
 
         public int RejectionAttemptThreshhold { get; private set; } = 10;
         public int BannableAttemptThreshhold { get; private set; } = 200;
         public int AttemptHourTimelimit { get; private set; } = 1;
+        public static int MaxMonthlyCommentThreshhold { get; private set; } = 3;
 
         public RequestAttemptLog LogRequest(string ipAddress, string requestType)
         {
@@ -77,7 +111,18 @@ namespace Pvp.Web.AppLogic.Modules
         {
             return AttemptRequest(review.IpAddress, () =>
             {
-                // TODO: Validate data
+                if (_context.CustomerReviews.Any(p => p.IpAddress == review.IpAddress
+                     && p.Rating == review.Rating
+                     && p.Comment == review.Comment))
+                    throw new Exception("You have already entered this comment. Thank you!");
+
+                if (_context.CustomerReviews
+                        .Count(p => p.IpAddress == review.IpAddress
+                         && p.CreatedDate.Year == DateTime.Now.Year 
+                         && p.CreatedDate.Month == DateTime.Now.Month)
+                        > MaxMonthlyCommentThreshhold)
+                    throw new Exception($"You have reviewed us too often. You can enter {MaxMonthlyCommentThreshhold} comments per IP address.  We appreciate your support.");
+
                 _context.CustomerReviews.Add(review);
                 _context.SaveChanges();
                 return _context.CustomerReviews
@@ -85,7 +130,6 @@ namespace Pvp.Web.AppLogic.Modules
                     .First(p=>p.Id == review.Id);
             });
         }
-        public IList<Review> CustomerReviewsForDisplay => _context.Reviews.AsNoTracking().ToList();
 
         private T AttemptRequest<T>(string ipAddress, Func<T> func)
         {
@@ -96,7 +140,6 @@ namespace Pvp.Web.AppLogic.Modules
 
             return func.Invoke();
         }
-
         public Response<T> AttemptResponse<T>(Func<T> func)
         {
             try
