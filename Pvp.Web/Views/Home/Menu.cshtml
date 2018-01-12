@@ -2,25 +2,50 @@
 @model IEnumerable<Location>
 
 <div class="container-fluid bg-success pt-5 pb-5">
-    <div class="container pt-3 pb-3 text-light">
+    <div class="container-fluid pt-3 pb-3 text-light">
         <h2>Check out our menus</h2>
         <div class="card text-dark">
             <div class="card-header">
-                
-                    Choose a location
-                    <select>
-                        @foreach(var loc in Model)
-                        {
-                            <option>@loc.DisplayName</option>
-                        }
-                    </select>
-                    to see that Menu
-                
+
+                Choose a location
+                <select id="locationMenu">
+                    @foreach (var loc in Model)
+                    {
+                        <option value="@(loc.DisplayName.ToLower().Replace(" ",""))">
+                            @loc.DisplayName
+                        </option>
+                    }
+                </select>
+                to see that Menu
+
             </div>
             <div class="card-body">
-                <i class="mdi mdi-loading mdi-spin"></i> Loadin Menu ...
+
+                <img id="menuImage" src="" style="width:100%"/>
+                
             </div>
         </div>
 
     </div>
 </div>
+
+
+@section scripts{
+    <script>
+
+        $(document).on('change', '#locationMenu', function () {
+            var locationName = $(this).val();
+            $("#menuImage").attr("src", "/images/menu/" + locationName + ".jpg");
+        });
+
+        $(document).ready(function () {
+
+           
+
+
+            $('#locationMenu').trigger("change", "#locationMenu");
+
+        });
+
+    </script>
+}

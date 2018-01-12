@@ -290,6 +290,9 @@
     <Content Include="Images\logo48b.png" />
     <Content Include="Images\logo64.png" />
     <Content Include="Images\logoNoCircle.png" />
+    <Content Include="Images\Menu\carlsbad.jpg" />
+    <Content Include="Images\Menu\lascruces.jpg" />
+    <Content Include="Images\Menu\roswell.jpg" />
     <Content Include="Images\pexels-photo-48709.jpeg" />
     <Content Include="Images\pvpwebbackgroundDarker.jpg" />
     <Content Include="Images\pvpwebpagebackgrounddark.jpg" />
@@ -317,6 +320,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\pecosvalleyproducers.com - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\pecosvalleyproduction.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\projectmonocle.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\zipdaub.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
